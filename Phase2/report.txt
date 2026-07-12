@@ -1,0 +1,92 @@
+================================================================================
+                    REPORT – PHASE 2
+           AUTOMATED LEXICAL ANALYSIS FOR MiniLang
+================================================================================
+
+1. Overview
+   This report summarizes the implementation of Phase 2 of the MiniLang
+   compiler project. The goal is to build an automated lexical analyzer
+   (scanner) using the PLY (Python Lex-Yacc) library. The scanner
+   recognizes all tokens defined in the MiniLang grammar, handles
+   comments and whitespace, and reports lexical errors with line
+   numbers.
+
+2. Implementation
+   The scanner is implemented as a Python class `MiniLanger` that
+   encapsulates all token definitions, regular expression rules, and
+   helper methods. The PLY library generates the lexer automatically
+   from these declarative rules.
+
+   Key components:
+   - `tokens` tuple: lists all token names (keywords, operators,
+     separators, identifiers, literals).
+   - Simple token rules: defined as class variables (e.g., `t_PLUS`,
+     `t_LT`, `t_LBRACE`) with regular expression strings.
+   - Complex token rules: implemented as methods (e.g., `t_ID`,
+     `t_INT_LITERAL`, `t_STRING_LITERAL`).
+   - Whitespace and newlines: `t_ignore` ignores spaces/tabs/carriage
+     returns; `t_newline` tracks line numbers.
+   - Comments: both single‑line (`//`) and multi‑line (`/* ... */`)
+     are ignored via `t_COMMENT`.
+   - Error handling: `t_error` prints a descriptive message (line
+     number, illegal character, ASCII code) and skips the character
+     to continue scanning.
+
+3. Token Coverage
+   The scanner fully supports the MiniLang token set:
+
+   Keywords:
+     int, bool, string, if, else, while, print, input, true, false
+
+   Operators:
+     +, -, *, /, <, >, ==, !=, &&, ||, !, =
+
+   Separators:
+     (, ), {, }, ; ,
+
+   Literals:
+     Integer literals (digits)
+     String literals (double‑quoted, supports escape sequences)
+     Boolean literals (true/false – mapped from keywords)
+
+   Identifiers:
+     Must start with a letter or underscore, followed by letters,
+     digits, or underscores.
+
+4. Error Handling & Robustness
+   - Lexical errors: when an illegal character is encountered, the
+     scanner prints an error message with the line number and the
+     character's ASCII code, then skips one character and continues.
+     This prevents premature termination.
+   - File I/O: errors such as missing files are caught and reported
+     clearly; the program exits gracefully.
+   - UTF‑8 support: files are opened with `encoding='utf-8'` to handle
+     non‑ASCII characters (though they are not part of the language,
+     they are processed correctly).
+
+5. Usage
+   The scanner can be run from the command line:
+   - With a file:  `python lexer.py input.mini`
+   - From stdin:   `python lexer.py` (then type code and press Ctrl+D)
+
+   The output is a formatted table listing each token's line number,
+   type, and value, followed by a total token count.
+
+6. Testing
+   The scanner has been tested with valid MiniLang programs containing
+   all token types, programs with comments, and programs with lexical
+   errors (e.g., invalid symbols like `$` or `@`). In all cases, the
+   scanner produced the correct token stream and appropriate error
+   reports.
+
+7. Conclusion
+   Phase 2 is successfully completed. The automated lexer fully
+   implements the lexical specification of MiniLang, provides clear
+   error diagnostics, and is ready for integration with the parser
+   (Phase 3) and code generator (Phase 4). The code is modular,
+   well‑commented, and supports UTF‑8 encoded source files.
+
+--------------------------------------------------------------------------------
+Report prepared by: Pouya Rostami/Hana Vahabi
+Date: July 11, 2026
+================================================================================
