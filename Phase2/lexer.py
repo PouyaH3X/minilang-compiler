@@ -1,4 +1,4 @@
-# Phase2 : Lexer with PLY for Minilang
+# Phase2 : Lexer with PLY for Minilang (Ut)
 
 import sys
 from ply import lex
@@ -69,7 +69,7 @@ class MiniLanger:
         return t
     # Comment
 
-    def t_STRING_LITERAL(self, t):
+    def t_COMMENT(self, t):
         r'(//[^\n]*)|(/\*([^*]|\*[^/])*\*+/)'
         pass
 
