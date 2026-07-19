@@ -1,0 +1,1 @@
+(IF, if)\n(LPAREN, ()\n(IDENTIFIER, x)\n(EQUAL, ==)\n(INTEGER, 10)\n(RPAREN, ))\n(WHILE, while)\n(LPAREN, ()\n(IDENTIFIER, count)\n(RPAREN, ))\n(IDENTIFIER, a)\n(ASSIGN, =)\n(INTEGER, 15)\n(PLUS, +)\n(IDENTIFIER, b)\n
